@@ -1,0 +1,19 @@
+CREATE TABLE IF NOT EXISTS player (
+	id BIGINT,
+	first_name VARCHAR(255) NOT NULL,
+	last_name VARCHAR(255) NOT NULL,
+	position VARCHAR(255) NOT NULL,
+	birthday DATE NOT NULL,
+	CONSTRAINT player_PK PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS team (
+	id BIGINT,
+	name VARCHAR(255) NOT NULL,
+	captain BIGINT,
+	player BIGINT,
+	CONSTRAINT team_PK PRIMARY KEY (id),
+	CONSTRAINT unq_captain UNIQUE (captain),
+	CONSTRAINT player_FK FOREIGN KEY (player) REFERENCES player,
+	CONSTRAINT captain_FK FOREIGN KEY (captain) REFERENCES player
+);
