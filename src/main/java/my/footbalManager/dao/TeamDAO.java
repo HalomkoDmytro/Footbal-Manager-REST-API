@@ -29,7 +29,7 @@ public interface TeamDAO {
      * Returns all teams stored in DB.
      * @return teams list
      */
-    List<Team> findAllTeams();
+    List<Team> findAll();
 
     /**
      * Returns all {@link Player} assigned to the {@link Team} stored in DB.
@@ -39,18 +39,11 @@ public interface TeamDAO {
     List<Player> getListPlayersByTeam(Long teamId);
 
     /**
-     * Return {@link Player} who is appointed captain at {@link Team}
-     * @param teamId id team
-     * @return captain of this team
-     */
-    Player getCaptain(Long teamId);
-
-    /**
      * Change for existing {@link Player} playing {@link Team}
      * @param teamId
      * @param playerId
      */
-    void addExistingPlayer(Long teamId, Long playerId);
+    void addExistingPlayer(Long teamId,Long playerId);
 
     /**
      * Create new {@link Player} and assigned to the {@link Team}

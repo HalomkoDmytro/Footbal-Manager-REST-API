@@ -17,11 +17,6 @@ public class PlayerServiceImpl implements PlayerService {
     private PlayerDAO playerDAO;
 
     @Override
-    public void testSave() {
-        playerDAO.testSave();
-    }
-
-    @Override
     public void save(Player player) {
         playerDAO.save(player);
     }
@@ -37,12 +32,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public void update(Player player) {
-
-    }
-
-    @Override
-    public void remove(Player player) {
-
+    public Player getCaptain(Long teamId) {
+        return playerDAO.getCaptain(teamId);
     }
 }

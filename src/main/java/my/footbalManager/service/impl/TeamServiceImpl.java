@@ -1,5 +1,6 @@
 package my.footbalManager.service.impl;
 
+import my.footbalManager.dao.PlayerDAO;
 import my.footbalManager.dao.TeamDAO;
 import my.footbalManager.model.Player;
 import my.footbalManager.model.Team;
@@ -10,12 +11,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-//@Service
-//@Transactional
+@Service("teamService")
+@Transactional
 public class TeamServiceImpl implements TeamService {
 
-//    @Autowired
+    @Autowired
     private TeamDAO teamDAO;
+
+    @Autowired
+    private PlayerDAO playerDAO;
 
     @Override
     public void save(Team team) {
@@ -28,32 +32,29 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public List<Team> findAllTeams() {
-        return null;
+    public List<Team> findAll() {
+        return teamDAO.findAll();
     }
 
     @Override
     public List<Player> getListPlayersByTeam(Long teamId) {
-        return null;
-    }
-
-    @Override
-    public Player getCaptain(Long teamId) {
-        return null;
+        return teamDAO.getListPlayersByTeam(teamId);
     }
 
     @Override
     public void addExistingPlayer(Long teamId, Long playerId) {
-
+        teamDAO.addExistingPlayer(teamId, playerId);
     }
 
     @Override
     public void addNewPlayer(Long teamId, Player player) {
-
+        teamDAO.addNewPlayer(teamId, player);
     }
 
     @Override
     public void assignCaptain(Long teamId, Long playerId) {
-
+        teamDAO.assignCaptain(teamId, playerId);
     }
+
+
 }

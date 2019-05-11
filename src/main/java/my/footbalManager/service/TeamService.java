@@ -2,6 +2,7 @@ package my.footbalManager.service;
 
 import my.footbalManager.model.Player;
 import my.footbalManager.model.Team;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,11 +12,9 @@ public interface TeamService {
 
     Team findById(Long id);
 
-    List<Team> findAllTeams();
+    List<Team> findAll();
 
     List<Player> getListPlayersByTeam(Long teamId);
-
-    Player getCaptain(Long teamId);
 
     void addExistingPlayer(Long teamId, Long playerId);
 

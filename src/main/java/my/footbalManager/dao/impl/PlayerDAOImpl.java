@@ -6,7 +6,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,16 +14,6 @@ public class PlayerDAOImpl implements PlayerDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
-
-    public void testSave(){
-        System.out.println("test save");
-        Player player = new Player();
-        player.setBirthday(new Date());
-        player.setFirstName("Peter");
-        player.setLastName("parcker");
-        player.setPosition("pos");
-        sessionFactory.getCurrentSession().save(player);
-    }
 
     public void save(Player player) {
         Objects.requireNonNull(player);
@@ -41,6 +30,15 @@ public class PlayerDAOImpl implements PlayerDAO {
         return sessionFactory.getCurrentSession()
                 .createQuery("select p from Player p", Player.class)
                 .getResultList();
+    }
+
+    public Player getCaptain(Long teamId) {
+        Objects.requireNonNull(teamId);
+        Player player = sessionFactory.getCurrentSession()
+                .createQuery("select t.captain from Team t where t.id = :teamId", Player.class)
+                .setParameter("teamId", teamId).getSingleResult();
+
+        return player;
     }
 
     public void update(Player player) {

@@ -15,12 +15,6 @@ public class PlayerController {
     @Autowired
     private PlayerService playerService;
 
-    @GetMapping("/test")
-    public String testSvae() {
-        playerService.testSave();
-        return "After controller dune job";
-    }
-
     @PostMapping("/players")
     public ResponseEntity<?> save(@RequestBody Player player) {
         playerService.save(player);
@@ -37,5 +31,11 @@ public class PlayerController {
     public ResponseEntity<List<Player>> listPlayers() {
         List<Player> players = playerService.findAll();
         return ResponseEntity.ok().body(players);
+    }
+
+    @GetMapping("/players/captain/{teamId}")
+    public ResponseEntity<Player> getCaptain(@PathVariable("teamId") long teamId) {
+        Player player = playerService.getCaptain(teamId);
+        return ResponseEntity.ok().body(player);
     }
 }

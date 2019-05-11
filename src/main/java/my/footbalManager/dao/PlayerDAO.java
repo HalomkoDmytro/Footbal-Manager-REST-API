@@ -1,15 +1,15 @@
 package my.footbalManager.dao;
 
 import my.footbalManager.model.Player;
+import my.footbalManager.model.Team;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
 /**
  * {@link PlayerDAO} provides an API to access {@link Player} data.
  */
-public interface PlayerDAO {
-
-    void testSave();
+public interface PlayerDAO  {
 
     /**
      * Store instance of {@link Player} into DB.
@@ -17,6 +17,7 @@ public interface PlayerDAO {
      * @param player
      */
     void save(Player player);
+
 
     /**
      * Return an {@link Player} instance by id from DB.
@@ -42,4 +43,12 @@ public interface PlayerDAO {
      * @param player stored player instance
      */
     void remove(Player player);
+
+
+    /**
+     * Return {@link Player} who is appointed captain at {@link Team}
+     * @param teamId id team
+     * @return captain of this team
+     */
+    Player getCaptain(Long teamId);
 }
