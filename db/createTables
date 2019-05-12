@@ -1,14 +1,15 @@
-CREATE TABLE IF NOT EXISTS player (
-	id BIGINT,
+CREATE TABLE player (
+	id serial ,
 	first_name VARCHAR(255) NOT NULL,
 	last_name VARCHAR(255) NOT NULL,
 	position VARCHAR(255) NOT NULL,
 	birthday DATE NOT NULL,
+	team_id BIGINT,
 	CONSTRAINT player_PK PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS team (
-	id BIGINT,
+CREATE TABLE team (
+	id serial,
 	name VARCHAR(255) NOT NULL,
 	captain BIGINT,
 	player BIGINT,
