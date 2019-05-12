@@ -1,7 +1,7 @@
-package my.footbalManager.dao;
+package my.footballManager.dao;
 
-import my.footbalManager.model.Player;
-import my.footbalManager.model.Team;
+import my.footballManager.model.Player;
+import my.footballManager.model.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

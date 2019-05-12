@@ -1,7 +1,7 @@
-package my.footbalManager.controller;
+package my.footballManager.controller;
 
-import my.footbalManager.model.Player;
-import my.footbalManager.service.PlayerService;
+import my.footballManager.model.Player;
+import my.footballManager.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

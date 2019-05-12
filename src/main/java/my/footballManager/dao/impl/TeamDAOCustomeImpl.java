@@ -1,8 +1,8 @@
-package my.footbalManager.dao.impl;
+package my.footballManager.dao.impl;
 
-import my.footbalManager.dao.TeamDAOCustome;
-import my.footbalManager.model.Player;
-import my.footbalManager.model.Team;
+import my.footballManager.dao.TeamDAOCustome;
+import my.footballManager.model.Player;
+import my.footballManager.model.Team;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

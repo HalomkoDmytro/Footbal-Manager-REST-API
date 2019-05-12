@@ -1,4 +1,4 @@
-package my.footbalManager.config;
+package my.footballManager.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

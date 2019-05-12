@@ -1,8 +1,8 @@
-package my.footbalManager.service.impl;
+package my.footballManager.service.impl;
 
-import my.footbalManager.dao.PlayerDAO;
-import my.footbalManager.model.Player;
-import my.footbalManager.service.PlayerService;
+import my.footballManager.dao.PlayerDAO;
+import my.footballManager.model.Player;
+import my.footballManager.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

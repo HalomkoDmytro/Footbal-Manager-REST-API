@@ -1,4 +1,4 @@
-package my.footbalManager.model;
+package my.footballManager.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;

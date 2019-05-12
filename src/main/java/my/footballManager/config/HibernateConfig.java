@@ -1,11 +1,11 @@
-package my.footbalManager.config;
+package my.footballManager.config;
 
-import jdk.internal.loader.Resource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
@@ -19,9 +19,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+import static org.hibernate.cfg.AvailableSettings.DIALECT;
+import static org.hibernate.cfg.AvailableSettings.FORMAT_SQL;
+import static org.hibernate.cfg.AvailableSettings.SHOW_SQL;
+
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({"my.footbalManager.config"})
+@ComponentScan({"my.footballManager.config"})
+@PropertySource("classpath:postgres.properties")
 public class HibernateConfig {
 
     @Autowired
@@ -31,7 +36,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(new String[]{"my.footbalManager.model"});
+        sessionFactory.setPackagesToScan(new String[]{"my.footballManager.model"});
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }
@@ -39,18 +44,18 @@ public class HibernateConfig {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/test");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("admin");
+        dataSource.setDriverClassName(environment.getProperty("postgres.driverClassName"));
+        dataSource.setUrl(environment.getProperty("postgres.url"));
+        dataSource.setUsername(environment.getProperty("postgres.user"));
+        dataSource.setPassword(environment.getProperty("postgres.password"));
         return dataSource;
     }
 
     private Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL82Dialect");
-        properties.put("hibernate.show_sql", true);
-        properties.put("hibernate.format_sql", true);
+        properties.put(DIALECT, environment.getProperty("hibernate.dialect"));
+        properties.put(SHOW_SQL, environment.getProperty("hibernate.showSql"));
+        properties.put(FORMAT_SQL, environment.getProperty("hibernate.formatSql"));
         return properties;
     }
 
@@ -70,7 +75,7 @@ public class HibernateConfig {
         emf.setDataSource(dataSource);
         emf.setJpaVendorAdapter(jpaVendorAdapter);
         emf.setJpaProperties(hibernateProperties());
-        emf.setPackagesToScan("my.footbalManager.model");
+        emf.setPackagesToScan("my.footballManager.model");
         return emf;
     }
 
@@ -81,5 +86,6 @@ public class HibernateConfig {
         vendorAdapter.setShowSql(true);
         return vendorAdapter;
     }
+
 
 }
