@@ -1,5 +1,6 @@
 package my.footbalManager.config;
 
+import jdk.internal.loader.Resource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,15 +10,18 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.Database;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
-
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({ "my.footbalManager.config" })
+@ComponentScan({"my.footbalManager.config"})
 public class HibernateConfig {
 
     @Autowired
@@ -27,7 +31,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(new String[] { "my.footbalManager.model" });
+        sessionFactory.setPackagesToScan(new String[]{"my.footbalManager.model"});
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }
@@ -57,4 +61,25 @@ public class HibernateConfig {
         txManager.setSessionFactory(s);
         return txManager;
     }
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
+                                                                       JpaVendorAdapter jpaVendorAdapter) {
+        LocalContainerEntityManagerFactoryBean emf
+                = new LocalContainerEntityManagerFactoryBean();
+        emf.setDataSource(dataSource);
+        emf.setJpaVendorAdapter(jpaVendorAdapter);
+        emf.setJpaProperties(hibernateProperties());
+        emf.setPackagesToScan("my.footbalManager.model");
+        return emf;
+    }
+
+    @Bean
+    public JpaVendorAdapter jpaVendorAdapter() {
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        vendorAdapter.setDatabase(Database.POSTGRESQL);
+        vendorAdapter.setShowSql(true);
+        return vendorAdapter;
+    }
+
 }

@@ -23,7 +23,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public Player findById(Long id) {
-        return playerDAO.findById(id);
+        return playerDAO.findById(id).get();
     }
 
     @Override

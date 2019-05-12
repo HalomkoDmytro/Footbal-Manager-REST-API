@@ -28,7 +28,7 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public Team findById(Long id) {
-        return teamDAO.findById(id);
+        return teamDAO.findById(id).get();
     }
 
     @Override
@@ -55,6 +55,5 @@ public class TeamServiceImpl implements TeamService {
     public void assignCaptain(Long teamId, Long playerId) {
         teamDAO.assignCaptain(teamId, playerId);
     }
-
 
 }

@@ -3,52 +3,19 @@ package my.footbalManager.dao;
 import my.footbalManager.model.Player;
 import my.footbalManager.model.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  * {@link PlayerDAO} provides an API to access {@link Player} data.
  */
-public interface PlayerDAO  {
-
-    /**
-     * Store instance of {@link Player} into DB.
-     * Set a generated id to player.
-     * @param player
-     */
-    void save(Player player);
-
-
-    /**
-     * Return an {@link Player} instance by id from DB.
-     * @param id player id in DB
-     * @return player instance
-     */
-    Player findById(Long id);
-
-    /**
-     * Returns all players stored in DB.
-     * @return players list
-     */
-    List<Player> findAll();
-
-    /**
-     * Receives stored {@link Player} instance and update in DB.
-     * @param player stored player with updated fields
-     */
-    void update(Player player);
-
-    /**
-     * Removes stored player from DB.
-     * @param player stored player instance
-     */
-    void remove(Player player);
-
+public interface PlayerDAO extends JpaRepository<Player, Long> {
 
     /**
      * Return {@link Player} who is appointed captain at {@link Team}
+     *
      * @param teamId id team
      * @return captain of this team
      */
+    @Query("select t.captain from Team t where t.id = :teamId")
     Player getCaptain(Long teamId);
 }

@@ -43,7 +43,7 @@ public class TeamController {
 
     @PutMapping("/teams/captain/{teamId}/{playerId}")
     public ResponseEntity<?> assignCaptainToTheTeam(@PathVariable("teamId") long teamId,
-                                                         @PathVariable("playerId") long playerId) {
+                                                    @PathVariable("playerId") long playerId) {
         teamService.assignCaptain(teamId, playerId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

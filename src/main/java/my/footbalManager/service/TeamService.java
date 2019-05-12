@@ -2,7 +2,6 @@ package my.footbalManager.service;
 
 import my.footbalManager.model.Player;
 import my.footbalManager.model.Team;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
