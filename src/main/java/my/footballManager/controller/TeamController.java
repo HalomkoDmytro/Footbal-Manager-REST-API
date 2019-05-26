@@ -6,6 +6,7 @@ import my.footballManager.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * This controller provides endpoint for managing {@link Team}.
  */
-@RestController
+@Controller
 public class TeamController {
 
     @Autowired

@@ -1,10 +1,14 @@
-package my.footballManager.config;
+package my.footballManager;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -14,23 +18,26 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
-import static org.hibernate.cfg.AvailableSettings.DIALECT;
-import static org.hibernate.cfg.AvailableSettings.FORMAT_SQL;
-import static org.hibernate.cfg.AvailableSettings.SHOW_SQL;
+import static org.hibernate.cfg.AvailableSettings.*;
 
-@Configuration
-@EnableTransactionManagement
-@ComponentScan({"my.footballManager.config"})
+@SpringBootApplication
+@EnableAutoConfiguration(exclude ={
+        DataSourceAutoConfiguration.class,
+        DataSourceTransactionManagerAutoConfiguration.class,
+        HibernateJpaAutoConfiguration.class
+})
 @PropertySource("classpath:postgres.properties")
-public class HibernateConfig {
-
+public class App {
     @Autowired
     private Environment environment;
+
+    public static void main(String[] args) {
+        SpringApplication.run(App.class, args);
+    }
 
     @Bean(name = "sessionFactory")
     public LocalSessionFactoryBean sessionFactory() {
@@ -53,6 +60,7 @@ public class HibernateConfig {
 
     private Properties hibernateProperties() {
         Properties properties = new Properties();
+        properties.put(NON_CONTEXTUAL_LOB_CREATION, true);
         properties.put(DIALECT, environment.getProperty("hibernate.dialect"));
         properties.put(SHOW_SQL, environment.getProperty("hibernate.showSql"));
         properties.put(FORMAT_SQL, environment.getProperty("hibernate.formatSql"));
@@ -86,6 +94,5 @@ public class HibernateConfig {
         vendorAdapter.setShowSql(true);
         return vendorAdapter;
     }
-
 
 }

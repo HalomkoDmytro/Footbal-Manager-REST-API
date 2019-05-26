@@ -1,16 +1,8 @@
 package my.footballManager.config;
 
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@EnableWebMvc
-@ComponentScan(basePackages = {"my.footballManager"})
-@EnableJpaRepositories("my.footballManager.dao")
-@EnableTransactionManagement
-public class WebMvcConfig {
-
+public class WebMvcConfig implements WebMvcConfigurer {
 }
